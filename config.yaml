@@ -1,6 +1,6 @@
 name: "Coturn TURN/STUN Server"
 description: "Coturn TURN/STUN server for WebRTC and VoIP NAT traversal"
-version: "0.1.1"
+version: "0.1.2"
 slug: "coturn"
 arch:
   - aarch64
@@ -38,8 +38,8 @@ options:
   static_auth_secret: ""
   username: ""
   password: ""
-  cert_file: ""
-  pkey_file: ""
+  cert_file: "fullchain.pem"
+  pkey_file: "privkey.pem"
   log_level: 3
   verbose: false
   fingerprint: false
