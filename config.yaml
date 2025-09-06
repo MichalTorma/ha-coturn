@@ -1,6 +1,6 @@
 name: "Coturn TURN/STUN Server"
 description: "Coturn TURN/STUN server for WebRTC and VoIP NAT traversal"
-version: "0.1.1"
+version: "0.1.0"
 slug: "coturn"
 arch:
   - aarch64
@@ -14,20 +14,17 @@ boot: manual
 hassio_api: true
 hassio_role: default
 host_network: false
-privileged:
-  - NET_ADMIN
+privileged: ["NET_ADMIN"]
 ports:
   3478/tcp: 3478
   3478/udp: 3478
   5349/tcp: 5349
   5349/udp: 5349
-  49152-65535/udp: 49152-65535
 ports_description:
   3478/tcp: "STUN/TURN TCP"
   3478/udp: "STUN/TURN UDP"
   5349/tcp: "STUN/TURN over TLS/DTLS TCP"
   5349/udp: "STUN/TURN over TLS/DTLS UDP"
-  49152-65535/udp: "Media relay ports"
 map:
   - config:rw
   - ssl:ro
@@ -71,4 +68,3 @@ schema:
   deny_peer_ip: ["str"]
   allowed_peer_ip: ["str"]
   external_ip: "str?"
-webui: "https://[HOST]:[PORT:5349]"
