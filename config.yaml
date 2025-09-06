@@ -14,7 +14,7 @@ boot: manual
 hassio_api: true
 hassio_role: default
 host_network: false
-privileged: ["NET_ADMIN"]
+privileged: []
 ports:
   3478/tcp: 3478
   3478/udp: 3478
