@@ -4,9 +4,9 @@ profile coturn flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
   # Capabilities
-  capability setgid,
-  capability setuid,
-  capability net_bind_service,
+  capability,
+  file,
+  signal (send) set=(kill,term,int,hup,cont),
 
   # S6-Overlay
   /init ix,
@@ -27,6 +27,13 @@ profile coturn flags=(attach_disconnected,mediate_deleted) {
 
   # Access to options.json and other add-on files
   /data/** rw,
+
+  # Start new shells
+  /bin/bash ix,
+  /usr/bin/env ix,
+  /bin/echo ix,
+  /bin/cat ix,
+  /bin/ls ix,
 
   # Access to SSL certificates
   /ssl/** r,
@@ -49,12 +56,12 @@ profile coturn flags=(attach_disconnected,mediate_deleted) {
   /usr/share/ca-certificates/** r,
 
   # Network access
-  network inet dgram,
-  network inet stream,
-  network inet6 dgram,
-  network inet6 stream,
+  network,
 
-  # Proc filesystem
+  # Process management
+  /proc/*/stat r,
+  /proc/*/status r,
+  /proc/sys/kernel/pid_max r,
   @{PROC}/sys/net/core/rmem_default r,
   @{PROC}/sys/net/core/rmem_max r,
   @{PROC}/sys/net/core/wmem_default r,
