@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant Community Add-on: Coturn
+# Take care of proper shutdown
+# ==============================================================================
+
+bashio::log.info "Coturn service finished, shutting down addon..."

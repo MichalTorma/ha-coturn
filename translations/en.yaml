@@ -1,0 +1,59 @@
+---
+configuration:
+  listening_port:
+    name: Listening Port
+    description: Primary port for STUN/TURN protocol (UDP and TCP)
+  tls_listening_port:
+    name: TLS Listening Port
+    description: Port for STUN/TURN over TLS/DTLS protocol (requires certificates)
+  min_port:
+    name: Minimum Port
+    description: Minimum port number for media relay range
+  max_port:
+    name: Maximum Port
+    description: Maximum port number for media relay range
+  realm:
+    name: Realm
+    description: TURN server realm (domain name)
+  use_auth_secret:
+    name: Use Auth Secret
+    description: Enable static authentication secret instead of username/password
+  static_auth_secret:
+    name: Static Auth Secret
+    description: Static secret for authentication (required when Use Auth Secret is enabled)
+  username:
+    name: Username
+    description: Username for TURN authentication (used when Auth Secret is disabled)
+  password:
+    name: Password
+    description: Password for TURN authentication (used when Auth Secret is disabled)
+  cert_file:
+    name: Certificate File
+    description: SSL certificate file name in /ssl/ directory (for TLS/DTLS)
+  pkey_file:
+    name: Private Key File
+    description: SSL private key file name in /ssl/ directory (for TLS/DTLS)
+  log_level:
+    name: Log Level
+    description: Logging verbosity level (1=minimal, 7=maximum)
+  verbose:
+    name: Verbose Logging
+    description: Enable verbose logging output
+  fingerprint:
+    name: Fingerprint
+    description: Use STUN fingerprint security feature
+  use_stun_server:
+    name: Enable STUN Server
+    description: Enable STUN server functionality
+  use_turn_server:
+    name: Enable TURN Server
+    description: Enable TURN server functionality
+  deny_peer_ip:
+    name: Deny Peer IPs
+    description: List of IP addresses/ranges to deny peer connections from
+  allowed_peer_ip:
+    name: Allowed Peer IPs
+    description: List of IP addresses/ranges to allow peer connections from
+  external_ip:
+    name: External IP
+    description: External IP address for NAT traversal (auto-detected if not set)

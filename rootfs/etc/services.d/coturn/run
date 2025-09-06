@@ -1,0 +1,30 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant Community Add-on: Coturn
+# Runs the Coturn TURN/STUN server
+# ==============================================================================
+
+bashio::log.info "Starting Coturn TURN/STUN server..."
+
+# Ensure proper ownership of coturn directories
+chown -R coturn:coturn /var/lib/coturn
+chown -R coturn:coturn /var/log/coturn
+chown -R coturn:coturn /var/run/coturn
+chown -R coturn:coturn /etc/coturn
+
+# Change to coturn working directory
+cd /var/lib/coturn || bashio::exit.nok "Could not change to Coturn working directory"
+
+# Get verbose setting for additional logging
+VERBOSE=$(bashio::config 'verbose')
+
+if bashio::var.true "${VERBOSE}"; then
+    bashio::log.info "Starting Coturn with verbose logging enabled"
+else
+    bashio::log.info "Starting Coturn with standard logging"
+fi
+
+# Execute Coturn server
+# Note: Running as root is acceptable for Home Assistant addons
+# Coturn will drop privileges to the configured user internally
+exec turnserver -c /etc/coturn/turnserver.conf

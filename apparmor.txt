@@ -1,0 +1,73 @@
+#include <tunables/global>
+
+profile coturn flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+
+  # Capabilities
+  capability setgid,
+  capability setuid,
+  capability net_bind_service,
+
+  # S6-Overlay
+  /init ix,
+  /bin/** ix,
+  /usr/bin/** ix,
+  /run/{s6,s6-rc*,service}/** ix,
+  /package/** ix,
+  /command/** ix,
+  /etc/services.d/** rwix,
+  /etc/cont-init.d/** rwix,
+  /etc/cont-finish.d/** rwix,
+  /run/{,**} rwk,
+  /dev/tty rw,
+
+  # Bashio
+  /usr/lib/bashio/** ix,
+  /tmp/** rwk,
+
+  # Access to options.json and other add-on files
+  /data/** rw,
+
+  # Access to SSL certificates
+  /ssl/** r,
+
+  # Coturn specific
+  /usr/bin/turnserver ix,
+  /etc/coturn/** rw,
+  /var/lib/coturn/** rw,
+  /var/log/coturn/** rw,
+  /var/run/coturn/** rw,
+
+  # System files
+  /etc/passwd r,
+  /etc/group r,
+  /etc/hosts r,
+  /etc/resolv.conf r,
+  /etc/nsswitch.conf r,
+  /etc/ssl/certs/** r,
+  /etc/ca-certificates/** r,
+  /usr/share/ca-certificates/** r,
+
+  # Network access
+  network inet dgram,
+  network inet stream,
+  network inet6 dgram,
+  network inet6 stream,
+
+  # Proc filesystem
+  @{PROC}/sys/net/core/rmem_default r,
+  @{PROC}/sys/net/core/rmem_max r,
+  @{PROC}/sys/net/core/wmem_default r,
+  @{PROC}/sys/net/core/wmem_max r,
+
+  # Device access
+  /dev/null rw,
+  /dev/zero r,
+  /dev/random r,
+  /dev/urandom r,
+
+  # Deny some dangerous paths
+  deny /proc/kcore r,
+  deny /proc/sysrq-trigger w,
+  deny /sys/kernel/security/** rw,
+}
